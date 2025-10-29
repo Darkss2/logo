@@ -15,7 +15,6 @@
             font-style: normal;
         }
 
-        /* --- Base Styles --- */
         body {
             margin: 0;
             font-family: 'SF Pro Display', sans-serif;
@@ -27,11 +26,8 @@
             background: #121212;
             color: #e0e0e0;
         }
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
 
-        /* --- Header --- */
         header {
             text-align: center;
             padding: 20px;
@@ -40,11 +36,8 @@
             color: #A57E2F;
             transition: color 0.3s;
         }
-        body.dark-theme header {
-            color: #F4CB59;
-        }
+        body.dark-theme header { color: #F4CB59; }
 
-        /* --- Main Gallery Grid --- */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -72,21 +65,13 @@
             background: #2a2a2a;
             box-shadow: 0 6px 18px rgba(0,0,0,0.15);
         }
-        .tile.in-view {
-            transform: translateY(0);
-            opacity: 1;
-        }
+        .tile.in-view { transform: translateY(0); opacity: 1; }
         .tile:hover {
             transform: translateY(-6px) scale(1.04);
             box-shadow: 0 14px 30px rgba(0,0,0,0.12);
         }
-        .tile img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
+        .tile img { width: 100%; height: 100%; object-fit: contain; }
 
-        /* --- Fullscreen Viewer --- */
         .viewer {
             position: fixed;
             inset: 0;
@@ -96,15 +81,9 @@
             justify-content: center;
             z-index: 100;
         }
-        .viewer.show {
-            display: flex;
-        }
-        .viewer img {
-            max-width: 90vw;
-            max-height: 90vh;
-        }
+        .viewer.show { display: flex; }
+        .viewer img { max-width: 90vw; max-height: 90vh; }
 
-        /* --- Contact Section & Footer --- */
         footer {
             margin-top: 30px;
             padding: 20px;
@@ -139,13 +118,9 @@
             background: #f0f0f0;
             transform: translateY(-2px);
         }
-        body.dark-theme .contacts a:hover {
-            background: #333;
-        }
-        .contacts img {
-            width: 20px;
-            height: 20px;
-        }
+        body.dark-theme .contacts a:hover { background: #333; }
+        .contacts img { width: 20px; height: 20px; }
+
         .social-links {
             display: flex;
             justify-content: center;
@@ -166,9 +141,8 @@
             width: 28px;
             height: 28px;
         }
-        .social-icon:hover {
-            transform: scale(1.15) rotate(5deg);
-        }
+        .social-icon:hover { transform: scale(1.15) rotate(5deg); }
+
         .copy-message {
             position: fixed;
             bottom: 20px;
@@ -194,28 +168,29 @@
 
     <footer>
         <div class="contacts">
-            <a href="mailto:montageofdz@gmail.com" data-copy="montageofdz@gmail.com">
-                <img src="gmail.svg" alt="Email Icon">
-                <span>montageofdz@gmail.com</span>
+            <a href="mailto:nabradziriya@gmail.com" data-copy="nabradziriya@gmail.com">
+                <img src="gmailforsmalltext.svg" alt="Email Icon">
+                <span>nabradziriya@gmail.com</span>
             </a>
             <a href="tel:0793726558" data-copy="0793726558">
-                <img src="phone.svg" alt="Phone Icon">
+                <img src="phoneforsmalltext.svg" alt="Phone Icon">
                 <span>07 93 72 65 58</span>
             </a>
-            <a href="https://wa.me/213793726558?text=i%20want%20a%20logo" target="_blank">
+            <a href="https://wa.me/213793726558" target="_blank">
                 <img src="whatsapp.svg" alt="WhatsApp Icon">
-                <span>Contact me on WhatsApp</span>
+                <span>Contact WhatsApp</span>
             </a>
         </div>
+
         <div class="social-links">
-            <a href="https://www.facebook.com/profile.php?id=61579364759951" target="_blank" class="social-icon">
+            <a href="https://www.facebook.com/profile.php?id=61579355122011" target="_blank" class="social-icon">
                 <img src="facebook.svg" alt="Facebook">
             </a>
-            <a href="https://www.instagram.com/m0ntage_dz/" target="_blank" class="social-icon">
+            <a href="https://www.instagram.com/nabra.dziriya/" target="_blank" class="social-icon">
                 <img src="instagram.svg" alt="Instagram">
             </a>
-            <a href="https://www.tiktok.com/@montage_dz_off" target="_blank" class="social-icon">
-                <img src="Tiktok.svg" alt="Tik Tok">
+            <a href="#" target="_blank" class="social-icon">
+                <img src="Tiktok.svg" alt="TikTok">
             </a>
         </div>
         <div class="copy-message" id="copyMessage">Copied!</div>
@@ -227,38 +202,24 @@
         const viewImg = document.getElementById('viewImg');
         const copyMessage = document.getElementById('copyMessage');
 
-        // Lazy-load with a smooth "appear on scroll" effect
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach((entry, index) => {
                 if (entry.isIntersecting) {
                     const tile = entry.target;
                     const path = tile.dataset.path;
-
-                    // Create image element and add to tile
                     const img = new Image();
                     img.src = path;
                     img.alt = `Logo ${tile.dataset.index}`;
                     tile.appendChild(img);
-
-                    // Add a staggered animation class
-                    setTimeout(() => {
-                        tile.classList.add('in-view');
-                    }, index * 100);
-
-                    // Stop observing once loaded
+                    setTimeout(() => tile.classList.add('in-view'), index * 100);
                     observer.unobserve(tile);
                 }
             });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px' // Start loading before it's in full view
-        });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-        // Use a loop to check for and display only existing PNG files (1.png, 2.png, etc.)
         for (let i = 1; i <= 50; i++) {
             const path = `${i}.png`;
             const imgCheck = new Image();
-            
             imgCheck.onload = () => {
                 const tile = document.createElement('div');
                 tile.className = 'tile';
@@ -269,56 +230,22 @@
                     viewer.classList.add('show');
                 });
                 gallery.appendChild(tile);
-                observer.observe(tile); // Start observing the tile for lazy-loading
+                observer.observe(tile);
             };
-            
-            imgCheck.onerror = () => {
-                // Do nothing if the image doesn't exist, effectively skipping it
-            };
-            
             imgCheck.src = path;
         }
 
-        // Close viewer on click or ESC
         viewer.addEventListener('click', () => viewer.classList.remove('show'));
-        window.addEventListener('keydown', e => {
-            if (e.key === 'Escape') viewer.classList.remove('show');
-        });
+        window.addEventListener('keydown', e => { if (e.key === 'Escape') viewer.classList.remove('show'); });
 
-        // Theme switching logic
-        const logoImg = document.getElementById('site-logo');
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-            document.body.classList.add('dark-theme');
-            if (logoImg) logoImg.src = 'logo montage dz white.svg';
-        } else {
-            document.body.classList.add('light-theme');
-            if (logoImg) logoImg.src = 'logo montage dz black.svg';
-        }
-        document.querySelector('.theme-switcher').addEventListener('click', () => {
-            document.body.classList.toggle('dark-theme');
-            if (document.body.classList.contains('dark-theme')) {
-                localStorage.setItem('theme', 'dark');
-                if (logoImg) logoImg.src = 'logo montage dz white.svg';
-            } else {
-                localStorage.setItem('theme', 'light');
-                if (logoImg) logoImg.src = 'logo montage dz black.svg';
-            }
-        });
-
-        // Copy contact info to clipboard
         document.querySelectorAll('.contacts a[data-copy]').forEach(item => {
             item.addEventListener('click', (e) => {
                 e.preventDefault();
                 const textToCopy = item.dataset.copy;
                 navigator.clipboard.writeText(textToCopy).then(() => {
                     copyMessage.style.opacity = '1';
-                    copyMessage.style.transform = 'translateX(-50%) translateY(0)';
-                    setTimeout(() => {
-                        copyMessage.style.opacity = '0';
-                        copyMessage.style.transform = 'translateX(-50%) translateY(10px)';
-                    }, 2000);
-                }).catch(err => console.error('Failed to copy text: ', err));
+                    setTimeout(() => copyMessage.style.opacity = '0', 2000);
+                });
             });
         });
     </script>
